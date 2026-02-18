@@ -61,11 +61,11 @@ const ExpenseForm = ({ onExpenseAdded }) => {
     };
 
     return (
-        <div className="expense-form-container">
-            <h2>Add New Expense</h2>
+        <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-6 text-gray-800">Add New Expense</h2>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Amount (₹)</label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Amount (₹)</label>
                     <input
                         type="number"
                         name="amount"
@@ -74,16 +74,18 @@ const ExpenseForm = ({ onExpenseAdded }) => {
                         required
                         min="0"
                         step="0.01"
+                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>Category</label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Category</label>
                     <select
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
                         required
+                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
                     >
                         <option value="">Select Category</option>
                         <option value="Food">Food</option>
@@ -94,33 +96,39 @@ const ExpenseForm = ({ onExpenseAdded }) => {
                     </select>
                 </div>
 
-                <div className="form-group">
-                    <label>Date</label>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Date</label>
                     <input
                         type="date"
                         name="date"
                         value={formData.date}
                         onChange={handleChange}
                         required
+                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>Description (Optional)</label>
+                <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Description (Optional)</label>
                     <input
                         type="text"
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
+                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                 </div>
 
-                <button type="submit" disabled={status === 'submitting'}>
+                <button 
+                    type="submit" 
+                    disabled={status === 'submitting'}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                     {status === 'submitting' ? 'Saving...' : 'Add Expense'}
                 </button>
 
-                {status === 'error' && <p className="error-message">{error}</p>}
-                {status === 'success' && <p className="success-message">Expense added successfully!</p>}
+                {status === 'error' && <p className="mt-4 text-red-500 text-sm text-center">{error}</p>}
+                {status === 'success' && <p className="mt-4 text-green-600 text-sm text-center font-medium">Expense added successfully!</p>}
             </form>
         </div>
     );

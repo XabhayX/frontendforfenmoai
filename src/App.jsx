@@ -5,7 +5,7 @@ import ExpenseList from './components/ExpenseList';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import './App.css';
+
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -29,21 +29,30 @@ function ExpenseTracker() {
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1>Expense Tracker</h1>
-        <div className="user-controls">
-            <span>Welcome, {user?.fullName}</span>
-            <button onClick={logout} className="logout-btn">Logout</button>
+    <div className="min-h-screen bg-gray-100 font-sans text-gray-900">
+      <header className="bg-white shadow-md">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-blue-600">Expense Tracker</h1>
+            <div className="flex items-center gap-4">
+                <span className="text-gray-600 hidden sm:inline">Welcome, {user?.fullName}</span>
+                <button 
+                    onClick={logout} 
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors duration-200 text-sm font-medium"
+                >
+                    Logout
+                </button>
+            </div>
         </div>
       </header>
-      <main className="app-content">
-        <section className="form-section">
-          <ExpenseForm onExpenseAdded={handleExpenseAdded} />
-        </section>
-        <section className="list-section">
-          <ExpenseList refreshTrigger={refreshList} />
-        </section>
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <section className="lg:col-span-1">
+              <ExpenseForm onExpenseAdded={handleExpenseAdded} />
+            </section>
+            <section className="lg:col-span-2">
+              <ExpenseList refreshTrigger={refreshList} />
+            </section>
+        </div>
       </main>
     </div>
   );
