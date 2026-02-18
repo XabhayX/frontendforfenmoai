@@ -1,42 +1,236 @@
-#root {
-  max-width: 1280px;
+:root {
+  --primary-color: #4CAF50;
+  --primary-hover: #45a049;
+  --background-color: #f4f4f9;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-color: #ddd;
+  --error-color: #d32f2f;
+  --success-color: #388e3c;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.app-container {
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  color: var(--primary-color);
+}
+
+.app-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .app-content {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* Form Styles */
+.expense-form-container {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* Fixes width issue */
+  font-size: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: var(--error-color);
+  margin-top: 1rem;
+}
+
+.success-message {
+  color: var(--success-color);
+  margin-top: 1rem;
+}
+
+/* List Styles */
+.expense-list-container {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.controls>div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.total-display {
+  background-color: #e8f5e9;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  text-align: right;
+  color: var(--primary-color);
+}
+
+.expense-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+.expense-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.category-tag {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #666;
+  background: #eee;
+  padding: 2px 8px;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.description {
+  font-weight: 500;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.expense-amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Auth Styles */
+.auth-container {
+  max-width: 400px;
+  margin: 4rem auto;
   padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.auth-container h2 {
+  margin-bottom: 2rem;
+  color: var(--primary-color);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-container form {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.auth-container .form-group {
+  text-align: left;
 }
 
-.card {
-  padding: 2em;
+.auth-container button {
+  margin-top: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+.auth-container p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.user-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.logout-btn {
+  width: auto;
+  padding: 0.5rem 1rem;
+  background-color: #f44336 !important;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f !important;
 }
