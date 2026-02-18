@@ -44,18 +44,21 @@ const ExpenseList = ({ refreshTrigger }) => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    return (
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-6 text-gray-800">Expense List</h2>
+
+    return (
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-100 h-full flex flex-col">
+            <h2 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
+                <span className="text-emerald-500 text-2xl">≡</span> Expense List
+            </h2>
             
-            <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
-                <div className="flex items-center gap-2 w-full md:w-auto">
-                    <label className="text-gray-700 text-sm font-bold whitespace-nowrap">Category:</label>
+            <div className="flex flex-col md:flex-row justify-between mb-6 gap-4 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <div className="flex items-center gap-3 w-full md:w-auto">
+                    <label className="text-slate-600 text-sm font-semibold whitespace-nowrap">Category:</label>
                     <select 
                         value={filterCategory} 
                         onChange={(e) => setFilterCategory(e.target.value)}
-                        className="w-full md:w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                        className="w-full md:w-auto px-3 py-1.5 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white text-sm text-slate-700"
                     >
                         <option value="">All Categories</option>
                         <option value="Food">Food</option>
@@ -66,12 +69,12 @@ const ExpenseList = ({ refreshTrigger }) => {
                     </select>
                 </div>
 
-                <div className="flex items-center gap-2 w-full md:w-auto">
-                    <label className="text-gray-700 text-sm font-bold whitespace-nowrap">Sort:</label>
+                <div className="flex items-center gap-3 w-full md:w-auto">
+                    <label className="text-slate-600 text-sm font-semibold whitespace-nowrap">Sort:</label>
                     <select 
                         value={sortOrder} 
                         onChange={(e) => setSortOrder(e.target.value)}
-                        className="w-full md:w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                        className="w-full md:w-auto px-3 py-1.5 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white text-sm text-slate-700"
                     >
                         <option value="date_desc">Newest First</option>
                         <option value="date_asc">Oldest First</option>
@@ -79,37 +82,43 @@ const ExpenseList = ({ refreshTrigger }) => {
                 </div>
             </div>
 
-            <div className="text-right font-bold text-xl mb-6 text-green-600 border-b pb-4">
-                <h3>Total: ₹{totalAmount.toFixed(2)}</h3>
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                <span className="text-slate-500 font-medium">Total Expenses</span>
+                <span className="text-2xl font-bold text-emerald-600">₹{totalAmount.toFixed(2)}</span>
             </div>
 
-            {loading && <p className="text-center text-gray-500 py-4">Loading expenses...</p>}
-            {error && <p className="text-center text-red-500 py-4">{error}</p>}
+            <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                {loading && <p className="text-center text-slate-500 py-8 animate-pulse">Loading expenses...</p>}
+                {error && <p className="text-center text-rose-500 py-8 bg-rose-50 rounded-lg mx-4">{error}</p>}
 
-            {!loading && !error && expenses.length === 0 && (
-                <p className="text-center text-gray-500 py-8 italic">No expenses found.</p>
-            )}
+                {!loading && !error && expenses.length === 0 && (
+                    <div className="text-center py-12 px-4 rounded-lg border-2 border-dashed border-slate-200 m-4">
+                        <p className="text-slate-400 italic mb-2">No expenses found.</p>
+                        <p className="text-slate-500 text-sm">Add a new expense to get started!</p>
+                    </div>
+                )}
 
-            {!loading && !error && expenses.length > 0 && (
-                <ul className="divide-y divide-gray-200">
-                    {expenses.map(expense => (
-                        <li key={expense._id} className="py-4 flex justify-between items-center hover:bg-gray-50 transition-colors rounded-md px-2">
-                            <div className="flex-1">
-                                <div className="flex items-center mb-1">
-                                    <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mr-2 uppercase tracking-wide">
-                                        {expense.category}
-                                    </span>
-                                    <span className="text-gray-400 text-xs">{formatDate(expense.date)}</span>
+                {!loading && !error && expenses.length > 0 && (
+                    <ul className="space-y-3">
+                        {expenses.map(expense => (
+                            <li key={expense._id} className="p-4 flex justify-between items-center bg-white border border-slate-200 hover:border-indigo-300 rounded-lg transition-all hover:shadow-md group">
+                                <div className="flex-1">
+                                    <div className="flex items-center mb-1 gap-2">
+                                        <span className="inline-block px-2.5 py-0.5 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider border border-indigo-100">
+                                            {expense.category}
+                                        </span>
+                                        <span className="text-slate-400 text-xs font-medium">{formatDate(expense.date)}</span>
+                                    </div>
+                                    <p className="text-slate-800 font-medium group-hover:text-indigo-900 transition-colors">{expense.description || expense.category}</p>
                                 </div>
-                                <p className="text-gray-800 font-medium">{expense.description || expense.category}</p>
-                            </div>
-                            <div className="text-lg font-bold text-gray-900 ml-4">
-                                ₹{expense.amount.toFixed(2)}
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            )}
+                                <div className="text-lg font-bold text-emerald-600 ml-4 font-mono bg-emerald-50 px-3 py-1 rounded-md border border-emerald-100">
+                                    ₹{expense.amount.toFixed(2)}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 };

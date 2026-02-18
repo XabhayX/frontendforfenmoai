@@ -61,33 +61,39 @@ const ExpenseForm = ({ onExpenseAdded }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-6 text-gray-800">Add New Expense</h2>
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-100">
+            <h2 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
+                <span className="text-indigo-600 text-2xl">+</span> Add New Expense
+            </h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Amount (₹)</label>
-                    <input
-                        type="number"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleChange}
-                        required
-                        min="0"
-                        step="0.01"
-                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                    />
+                    <label className="block text-slate-700 text-sm font-semibold mb-2">Amount (₹)</label>
+                    <div className="relative">
+                        <span className="absolute left-3 top-2.5 text-slate-400">₹</span>
+                        <input
+                            type="number"
+                            name="amount"
+                            value={formData.amount}
+                            onChange={handleChange}
+                            required
+                            min="0"
+                            step="0.01"
+                            className="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all placeholder-slate-400 text-slate-800"
+                            placeholder="0.00"
+                        />
+                    </div>
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Category</label>
+                    <label className="block text-slate-700 text-sm font-semibold mb-2">Category</label>
                     <select
                         name="category"
                         value={formData.category}
                         onChange={handleChange}
                         required
-                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                        className="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white text-slate-800"
                     >
-                        <option value="">Select Category</option>
+                        <option value="" className="text-slate-400">Select Category</option>
                         <option value="Food">Food</option>
                         <option value="Travel">Travel</option>
                         <option value="Utilities">Utilities</option>
@@ -97,38 +103,39 @@ const ExpenseForm = ({ onExpenseAdded }) => {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Date</label>
+                    <label className="block text-slate-700 text-sm font-semibold mb-2">Date</label>
                     <input
                         type="date"
                         name="date"
                         value={formData.date}
                         onChange={handleChange}
                         required
-                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        className="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-slate-800"
                     />
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Description (Optional)</label>
-                    <input
-                        type="text"
+                    <label className="block text-slate-700 text-sm font-semibold mb-2">Description (Optional)</label>
+                    <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        rows="2"
+                        className="w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-slate-800 resize-none"
+                        placeholder="What was this expense for?"
                     />
                 </div>
 
                 <button 
                     type="submit" 
                     disabled={status === 'submitting'}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-md shadow-indigo-200 hover:shadow-lg hover:shadow-indigo-300"
                 >
                     {status === 'submitting' ? 'Saving...' : 'Add Expense'}
                 </button>
 
-                {status === 'error' && <p className="mt-4 text-red-500 text-sm text-center">{error}</p>}
-                {status === 'success' && <p className="mt-4 text-green-600 text-sm text-center font-medium">Expense added successfully!</p>}
+                {status === 'error' && <div className="mt-4 p-3 bg-rose-50 border border-rose-100 rounded-lg text-rose-600 text-sm text-center">{error}</div>}
+                {status === 'success' && <div className="mt-4 p-3 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-600 text-sm text-center font-medium">Expense added successfully!</div>}
             </form>
         </div>
     );
