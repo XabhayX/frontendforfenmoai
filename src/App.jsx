@@ -5,6 +5,7 @@ import ExpenseList from './components/ExpenseList';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import NotFound from './components/NotFound';
 
 
 const ProtectedRoute = ({ children }) => {
@@ -73,6 +74,7 @@ function App() {
                         </ProtectedRoute>
                     } 
                 />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </AuthProvider>
     </Router>
